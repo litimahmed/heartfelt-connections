@@ -8,22 +8,11 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "@/contexts/TranslationContext";
 import { usePartners } from "@/hooks/usePartners";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getTranslatedValue } from "@/types/partner";
 
 const Partnerships = () => {
     const { t, language } = useTranslation();
     const { data: partners, isLoading } = usePartners();
-
-    type TranslationItem = { lang: string; value: string; };
-    type TranslatableField = TranslationItem[] | undefined;
-
-    const getTranslated = (field: TranslatableField): string => {
-        if (!field || !Array.isArray(field)) return '';
-        const translation = field.find(item => item.lang === language) 
-            || field.find(item => item.lang === 'en') 
-            || field.find(item => item.lang === 'fr')
-            || field[0];
-        return translation?.value || '';
-    };
 
     const getImageUrl = (path: string | undefined): string => {
         if (!path) return '';
@@ -81,7 +70,7 @@ const Partnerships = () => {
 
                     <div className="flex w-max gap-6 animate-scroll-infinite">
                         {Array(8).fill(partners).flat().map((partner, index) => {
-                            const partnerName = getTranslated(partner.nom_partenaire);
+                            const partnerName = getTranslatedValue(partner.nom_partenaire, language);
                             const logoUrl = getImageUrl(partner.logo);
                             
                             return (

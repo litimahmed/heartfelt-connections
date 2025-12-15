@@ -14,22 +14,17 @@ import Footer from "@/components/Footer";
 import { useTranslation } from "@/contexts/TranslationContext";
 import { usePartner } from "@/hooks/usePartners";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getTranslatedValue, TranslatableField } from "@/types/partner";
 
 const PartnerDetail = () => {
     const { partnerId } = useParams<{ partnerId: string; }>();
     const { t, language } = useTranslation();
     const { data: partner, isLoading } = usePartner(partnerId || '');
 
-    type TranslationItem = { lang: string; value: string; };
-    type TranslatableField = TranslationItem[] | undefined;
+    const PLACEHOLDER_IMAGE = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150"%3E%3Crect width="200" height="150" fill="%23f3f4f6"/%3E%3Ctext x="100" y="75" text-anchor="middle" dominant-baseline="middle" font-family="system-ui" font-size="14" fill="%239ca3af"%3ENo Image%3C/text%3E%3C/svg%3E';
 
     const getTranslated = (field: TranslatableField, fallback: string = ''): string => {
-        if (!field || !Array.isArray(field)) return fallback;
-        const translation = field.find(item => item.lang === language) 
-            || field.find(item => item.lang === 'en') 
-            || field.find(item => item.lang === 'fr')
-            || field[0];
-        return translation?.value || fallback;
+        return getTranslatedValue(field, language) || fallback;
     };
 
     const PLACEHOLDER_IMAGE = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150"%3E%3Crect width="200" height="150" fill="%23f3f4f6"/%3E%3Ctext x="100" y="75" text-anchor="middle" dominant-baseline="middle" font-family="system-ui" font-size="14" fill="%239ca3af"%3ENo Image%3C/text%3E%3C/svg%3E';
@@ -141,14 +136,18 @@ const PartnerDetail = () => {
                                             </div>
                                         </div>
                                     )}
-                                    {partner.adresse && partner.adresse.length > 0 && (
+                                    {partner.adresse && (
                                         <div className="flex items-center gap-3">
                                             <div className="p-2 rounded-lg bg-primary/10">
                                                 <MapPin className="w-5 h-5 text-primary" />
                                             </div>
                                             <div>
                                                 <p className="text-xs text-muted-foreground uppercase tracking-wide">{t('partner.headquarters')}</p>
-                                                <p className="font-semibold text-lg">{getTranslated(partner.adresse[0].ville)}</p>
+                                                <p className="font-semibold text-lg">
+                                                    {Array.isArray(partner.adresse) && partner.adresse.length > 0 && partner.adresse[0].ville
+                                                        ? getTranslated(partner.adresse[0].ville)
+                                                        : getTranslated(partner.adresse as TranslatableField)}
+                                                </p>
                                             </div>
                                         </div>
                                     )}
@@ -287,14 +286,16 @@ const PartnerDetail = () => {
                                                         </div>
                                                     )}
 
-                                                    {partner.adresse && partner.adresse.length > 0 && (
+                                                    {partner.adresse && (
                                                         <div className="space-y-2">
                                                             <div className="flex items-center gap-2 text-primary mb-3">
                                                                 <MapPin className="w-5 h-5" />
                                                                 <span className="font-semibold text-sm uppercase tracking-wider">{t('contact.location')}</span>
                                                             </div>
                                                             <p className="text-muted-foreground leading-relaxed">
-                                                                {getTranslated(partner.adresse[0].rue)}, {getTranslated(partner.adresse[0].ville)}
+                                                                {Array.isArray(partner.adresse) && partner.adresse.length > 0 && partner.adresse[0].rue
+                                                                    ? `${getTranslated(partner.adresse[0].rue)}, ${getTranslated(partner.adresse[0].ville)}`
+                                                                    : getTranslated(partner.adresse as TranslatableField)}
                                                             </p>
                                                         </div>
                                                     )}
