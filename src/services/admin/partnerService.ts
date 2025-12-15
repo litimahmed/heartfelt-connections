@@ -1,6 +1,18 @@
-import { PartnerPayload, PartnerResponse } from "@/types/admin/partner";
+import { PartnerPayload, PartnerResponse, MultilingualField } from "@/types/admin/partner";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api";
+
+// Convert array multilingual format [{lang, value}] to object format {ar, fr, en}
+const convertMultilingualToObject = (field: MultilingualField | undefined): { ar: string; fr: string; en: string } => {
+  if (!field || !Array.isArray(field)) {
+    return { ar: "", fr: "", en: "" };
+  }
+  return {
+    ar: field.find(item => item.lang === "ar")?.value || "",
+    fr: field.find(item => item.lang === "fr")?.value || "",
+    en: field.find(item => item.lang === "en")?.value || "",
+  };
+};
 
 export const getAllPartners = async (): Promise<PartnerResponse[]> => {
   const accessToken = localStorage.getItem("accessToken");
@@ -50,15 +62,31 @@ export const createPartner = async (
   
   const formData = new FormData();
   
-  // Add JSON fields to FormData
-  formData.append("nom_partenaire", JSON.stringify(payload.nom_partenaire));
-  formData.append("description", JSON.stringify(payload.description));
-  formData.append("adresse", JSON.stringify(payload.adresse));
+  // Convert multilingual fields from array format to object format {ar, fr, en}
+  formData.append("nom_partenaire", JSON.stringify(convertMultilingualToObject(payload.nom_partenaire)));
+  formData.append("description", JSON.stringify(convertMultilingualToObject(payload.description)));
+  
+  // Convert adresse - combine rue, ville, pays into a single translated string
+  if (payload.adresse && payload.adresse.length > 0) {
+    const addr = payload.adresse[0];
+    const addressObject = {
+      ar: [addr.rue, addr.ville, addr.pays].map(f => f?.find(i => i.lang === "ar")?.value || "").filter(Boolean).join(", "),
+      fr: [addr.rue, addr.ville, addr.pays].map(f => f?.find(i => i.lang === "fr")?.value || "").filter(Boolean).join(", "),
+      en: [addr.rue, addr.ville, addr.pays].map(f => f?.find(i => i.lang === "en")?.value || "").filter(Boolean).join(", "),
+    };
+    formData.append("adresse", JSON.stringify(addressObject));
+  }
+  
   formData.append("email", payload.email);
   formData.append("telephone", payload.telephone);
   formData.append("site_web", payload.site_web);
   formData.append("actif", String(payload.actif ?? true));
-  formData.append("type_partenaire", payload.type_partenaire || "");
+  
+  // type_partenaire as array of strings
+  if (payload.type_partenaire) {
+    formData.append("type_partenaire", JSON.stringify([payload.type_partenaire]));
+  }
+  
   formData.append("date_deb", payload.date_deb);
   formData.append("date_fin", payload.date_fin);
   formData.append("date_creation_entreprise", payload.date_creation_entreprise);
@@ -67,8 +95,11 @@ export const createPartner = async (
   if (payload.facebook) formData.append("facebook", payload.facebook);
   if (payload.instagram) formData.append("instagram", payload.instagram);
   if (payload.tiktok) formData.append("tiktok", payload.tiktok);
+  
+  // liens_externes as array of URL strings
   if (payload.liens_externes?.length) {
-    formData.append("liens_externes", JSON.stringify(payload.liens_externes));
+    const urlStrings = payload.liens_externes.map(link => link.url).filter(Boolean);
+    formData.append("liens_externes", JSON.stringify(urlStrings));
   }
   
   // Add files
