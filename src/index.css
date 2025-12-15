@@ -1,105 +1,592 @@
+/**
+ * =============================================================================
+ * @file index.css
+ * =============================================================================
+ *
+ * 🇫🇷 GUIDE POUR LE STAKEHOLDER - FICHIER DES COULEURS ET STYLES
+ *
+ * Ce fichier est le CŒUR du design de votre plateforme Toorrii.
+ * Toutes les couleurs, dégradés et ombres sont définies ici.
+ *
+ * 📌 COMMENT LIRE LES COULEURS HSL:
+ * Les couleurs sont au format HSL (Teinte Saturation Luminosité):
+ *
+ *   Exemple: 182 86% 14%
+ *            │   │    │
+ *            │   │    └─ Luminosité (0% = noir, 100% = blanc)
+ *            │   └────── Saturation (0% = gris, 100% = vif)
+ *            └────────── Teinte (0-360, position sur le cercle des couleurs)
+ *
+ * 🎨 GUIDE DES TEINTES (0-360):
+ *   0   = Rouge
+ *   30  = Orange
+ *   60  = Jaune
+ *   120 = Vert
+ *   180 = Cyan/Turquoise ← Couleur Toorrii actuelle
+ *   240 = Bleu
+ *   300 = Violet/Magenta
+ *   360 = Rouge (boucle)
+ *
+ * ⚠️ ATTENTION: Modifiez uniquement les sections marquées "MODIFIABLE ✏️"
+ *
+ * =============================================================================
+ */
+
+/* Import des styles de base Tailwind CSS - NE PAS MODIFIER */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/*
+ * =============================================================================
+ * SYSTÈME DE DESIGN - VARIABLES CSS PERSONNALISÉES
+ * =============================================================================
+ */
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /*
+     * ===========================================================================
+     * 🌞 THÈME CLAIR (MODE PAR DÉFAUT)
+     * ===========================================================================
+     *
+     * Ces variables définissent l'apparence du site en mode clair.
+     * C'est le mode que vos utilisateurs voient par défaut.
+     *
+     */
+    :root {
+        /* ─────────────────────────────────────────────────────────────────────────
+         * 📄 COULEURS DE BASE - MODIFIABLE ✏️
+         * ─────────────────────────────────────────────────────────────────────────
+         *
+         * background: Couleur de fond des pages
+         *   → Actuellement: Blanc cassé (léger, pas blanc pur)
+         *   → Pour un blanc pur: 0 0% 100%
+         *   → Pour un gris clair: 0 0% 95%
+         *
+         * foreground: Couleur du texte principal
+         *   → Actuellement: Vert foncé Toorrii
+         *   → Pour du noir standard: 0 0% 5%
+         */
+        --background: 0 0% 99%;
+        --foreground: 182 86% 14%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * 📦 COULEURS DES CARTES - TECHNIQUE (suit background)
+         * ─────────────────────────────────────────────────────────────────────────
+         */
+        --card: 0 0% 99%;
+        --card-foreground: 182 86% 14%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * 💬 COULEURS DES POPOVERS - TECHNIQUE (suit background)
+         * ─────────────────────────────────────────────────────────────────────────
+         */
+        --popover: 0 0% 99%;
+        --popover-foreground: 182 86% 14%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * 🎨 COULEUR PRINCIPALE (PRIMARY) - MODIFIABLE ✏️
+         * ─────────────────────────────────────────────────────────────────────────
+         *
+         * C'EST LA COULEUR LA PLUS IMPORTANTE - Votre identité de marque!
+         *
+         * Utilisée pour:
+         *   ✓ Boutons principaux
+         *   ✓ Liens actifs
+         *   ✓ Icônes importantes
+         *   ✓ Éléments de navigation sélectionnés
+         *   ✓ Barre de progression
+         *
+         * Valeur actuelle: Vert/Teal Toorrii (182 86% 14%)
+         *
+         * 🎨 EXEMPLES DE CHANGEMENT:
+         *   → Bleu corporate:    210 100% 40%
+         *   → Rouge énergique:   0 80% 50%
+         *   → Violet moderne:    270 70% 50%
+         *   → Orange chaleureux: 25 90% 50%
+         *   → Vert nature:       140 70% 35%
+         *
+         * primary-foreground: Texte SUR les boutons (garder blanc ou noir)
+         * primary-light: Version plus claire (pour les dégradés)
+         * primary-dark: Version plus foncée (pour les survols)
+         */
+        --primary: 182 86% 14%;
+        --primary-foreground: 0 0% 99%;
+        --primary-light: 176 28% 35%;
+        --primary-dark: 182 90% 10%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * 🎨 COULEUR SECONDAIRE - MODIFIABLE ✏️
+         * ─────────────────────────────────────────────────────────────────────────
+         *
+         * Utilisée pour les éléments moins importants:
+         *   ✓ Boutons secondaires
+         *   ✓ Badges
+         *   ✓ Tags
+         *
+         * Conseil: Choisir une couleur complémentaire à la couleur principale
+         */
+        --secondary: 176 28% 35%;
+        --secondary-foreground: 0 0% 99%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * 🔅 COULEURS ATTÉNUÉES (MUTED) - MODIFIABLE ✏️
+         * ─────────────────────────────────────────────────────────────────────────
+         *
+         * Pour les arrière-plans subtils et le texte secondaire:
+         *   ✓ Fonds de sections alternées
+         *   ✓ Texte d'aide
+         *   ✓ Placeholders
+         *
+         * Conseil: Garder des tons neutres ou très légers de votre couleur principale
+         */
+        --muted: 155 27% 85%;
+        --muted-foreground: 182 40% 30%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * ✨ COULEUR D'ACCENT - MODIFIABLE ✏️
+         * ─────────────────────────────────────────────────────────────────────────
+         *
+         * Pour attirer l'attention sur des éléments spécifiques:
+         *   ✓ Notifications
+         *   ✓ Badges "Nouveau"
+         *   ✓ Éléments interactifs au survol
+         */
+        --accent: 174 19% 57%;
+        --accent-foreground: 182 86% 14%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * ❌ COULEUR DESTRUCTIVE (ERREURS) - NE PAS MODIFIER ⚠️
+         * ─────────────────────────────────────────────────────────────────────────
+         *
+         * Rouge standard pour:
+         *   ✓ Messages d'erreur
+         *   ✓ Boutons de suppression
+         *   ✓ Alertes critiques
+         *
+         * Important: Garder le rouge pour respecter les conventions UX
+         */
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 0% 99%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * ✅ COULEUR DE SUCCÈS - MODIFIABLE ✏️
+         * ─────────────────────────────────────────────────────────────────────────
+         *
+         * Pour les confirmations positives:
+         *   ✓ Messages de succès
+         *   ✓ Validations
+         *   ✓ Indicateurs "en ligne"
+         */
+        --success: 174 19% 57%;
+        --success-foreground: 182 86% 14%;
 
-    --radius: 0.5rem;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * ⚠️ COULEUR D'AVERTISSEMENT - MODIFIABLE ✏️
+         * ─────────────────────────────────────────────────────────────────────────
+         *
+         * Pour les alertes non-critiques:
+         *   ✓ Messages d'avertissement
+         *   ✓ Informations importantes
+         */
+        --warning: 38 92% 50%;
+        --warning-foreground: 38 92% 20%;
 
-    --sidebar-background: 0 0% 98%;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * 🔲 BORDURES ET CHAMPS - MODIFIABLE ✏️
+         * ─────────────────────────────────────────────────────────────────────────
+         *
+         * border: Couleur des bordures (cartes, tableaux, séparateurs)
+         * input: Couleur de fond des champs de saisie
+         * ring: Couleur de l'anneau de focus (accessibilité - important!)
+         */
+        --border: 155 27% 85%;
+        --input: 0 0% 96%;
+        --ring: 182 86% 14%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * 🌈 DÉGRADÉS PERSONNALISÉS - MODIFIABLE ✏️
+         * ─────────────────────────────────────────────────────────────────────────
+         *
+         * gradient-primary: Dégradé de marque (en-têtes, boutons spéciaux)
+         *   → Direction: 135deg (diagonal haut-gauche vers bas-droite)
+         *   → Couleurs: De primary vers primary-dark
+         *
+         * gradient-hero: Dégradé de la section héro (page d'accueil)
+         *   → Crée un effet de profondeur visuelle
+         *
+         * gradient-subtle: Dégradé subtil (arrière-plans de sections)
+         *   → Très léger, de blanc vers gris clair
+         */
+        --gradient-primary: linear-gradient(135deg, hsl(182, 86%, 14%), hsl(182, 90%, 10%));
+        --gradient-hero: linear-gradient(135deg, hsl(176, 28%, 35%) 0%, hsl(182, 86%, 14%) 100%);
+        --gradient-subtle: linear-gradient(180deg, hsl(0, 0%, 99%) 0%, hsl(155, 27%, 90%) 100%);
 
-    --sidebar-primary: 240 5.9% 10%;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * 🌓 OMBRES PERSONNALISÉES - MODIFIABLE ✏️
+         * ─────────────────────────────────────────────────────────────────────────
+         *
+         * shadow-elegant: Ombre subtile et professionnelle
+         *   → Utilisée sur les cartes et éléments en relief
+         *
+         * shadow-glow: Effet de lueur
+         *   → Pour les éléments mis en valeur
+         *
+         * shadow-card: Ombre standard des cartes
+         * shadow-header: Ombre de l'en-tête fixe
+         * shadow-sidebar: Ombre du menu latéral
+         */
+        --shadow-elegant: 0 10px 40px -10px hsl(182 86% 14% / 0.20);
+        --shadow-glow: 0 0 60px hsl(174 19% 57% / 0.20);
+        --shadow-card: 0 4px 20px hsl(182 86% 14% / 0.10);
+        --shadow-header: 0 4px 30px -4px hsl(182 86% 14% / 0.12), 0 0 0 1px hsl(182 86% 14% / 0.05);
+        --shadow-sidebar: 4px 0 30px -4px hsl(182 86% 14% / 0.10), 0 0 0 1px hsl(182 86% 14% / 0.05);
 
-    --sidebar-primary-foreground: 0 0% 98%;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * 🔘 ARRONDI DES COINS - MODIFIABLE ✏️
+         * ─────────────────────────────────────────────────────────────────────────
+         *
+         * Contrôle l'arrondi de TOUS les éléments du site:
+         *   ✓ Boutons
+         *   ✓ Cartes
+         *   ✓ Champs de saisie
+         *   ✓ Images
+         *
+         * Valeurs suggérées:
+         *   0rem    → Coins carrés (style brutaliste/moderne)
+         *   0.25rem → Légèrement arrondis
+         *   0.5rem  → Moyennement arrondis (défaut Toorrii)
+         *   0.75rem → Bien arrondis
+         *   1rem    → Très arrondis (style doux/friendly)
+         */
+        --radius: 0.5rem;
 
-    --sidebar-accent: 240 4.8% 95.9%;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * 📊 COULEURS SIDEBAR (ADMIN) - TECHNIQUE
+         * ─────────────────────────────────────────────────────────────────────────
+         *
+         * Ces couleurs affectent uniquement le tableau de bord administrateur.
+         * Elles suivent généralement le thème principal.
+         */
+        --sidebar-background: 0 0% 100%;
+        --sidebar-foreground: 182 86% 14%;
+        --sidebar-primary: 182 86% 14%;
+        --sidebar-primary-foreground: 0 0% 100%;
+        --sidebar-accent: 182 60% 96%;
+        --sidebar-accent-foreground: 182 86% 14%;
+        --sidebar-border: 182 20% 92%;
+        --sidebar-ring: 182 86% 14%;
 
-    --sidebar-accent-foreground: 240 5.9% 10%;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * 📊 COULEURS HEADER - TECHNIQUE
+         * ─────────────────────────────────────────────────────────────────────────
+         */
+        --header-background: 0 0% 100%;
+        --header-border: 182 20% 92%;
+    }
 
-    --sidebar-border: 220 13% 91%;
+    /*
+     * ===========================================================================
+     * 🌙 THÈME SOMBRE (DARK MODE) - ADMIN UNIQUEMENT
+     * ===========================================================================
+     *
+     * Ces variables s'appliquent quand le mode sombre est activé.
+     * Note: Le mode sombre n'est disponible que dans l'admin.
+     *
+     */
+    .dark {
+        /* ─────────────────────────────────────────────────────────────────────────
+         * 📄 COULEURS DE BASE - MODE SOMBRE
+         * ─────────────────────────────────────────────────────────────────────────
+         *
+         * En mode sombre, on inverse: fond foncé, texte clair.
+         */
+        --background: 220 15% 8%;
+        --foreground: 0 0% 96%;
 
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
+        /* Cartes légèrement plus claires que le fond */
+        --card: 220 15% 12%;
+        --card-foreground: 0 0% 96%;
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+        /* Popovers */
+        --popover: 220 15% 12%;
+        --popover-foreground: 0 0% 96%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+        /* ─────────────────────────────────────────────────────────────────────────
+         * 🎨 COULEUR PRINCIPALE - MODE SOMBRE - MODIFIABLE ✏️
+         * ─────────────────────────────────────────────────────────────────────────
+         *
+         * En mode sombre, la couleur principale doit être plus lumineuse
+         * pour rester visible sur le fond foncé.
+         */
+        --primary: 182 65% 50%;
+        --primary-foreground: 220 15% 8%;
+        --primary-light: 176 55% 60%;
+        --primary-dark: 182 70% 40%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+        /* Couleur secondaire - gris neutre pour le mode sombre */
+        --secondary: 220 10% 18%;
+        --secondary-foreground: 0 0% 96%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+        /* Couleurs atténuées - gris neutre sans teinte de couleur */
+        --muted: 220 10% 16%;
+        --muted-foreground: 220 5% 60%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+        /* Couleur d'accent */
+        --accent: 182 50% 45%;
+        --accent-foreground: 0 0% 96%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+        /* Couleurs d'état */
+        --destructive: 0 65% 55%;
+        --destructive-foreground: 0 0% 96%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+        --success: 150 55% 50%;
+        --success-foreground: 220 15% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+        --warning: 38 90% 55%;
+        --warning-foreground: 220 15% 8%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
+        /* Bordures et champs */
+        --border: 220 10% 22%;
+        --input: 220 10% 14%;
+        --ring: 182 65% 50%;
+
+        /* Dégradés pour le mode sombre */
+        --gradient-primary: linear-gradient(135deg, hsl(182, 65%, 50%), hsl(182, 70%, 40%));
+        --gradient-hero: linear-gradient(135deg, hsl(176, 50%, 45%) 0%, hsl(182, 65%, 40%) 100%);
+        --gradient-subtle: linear-gradient(180deg, hsl(220, 15%, 8%) 0%, hsl(220, 15%, 12%) 100%);
+
+        /* Ombres pour le mode sombre (plus prononcées) */
+        --shadow-elegant: 0 10px 40px -10px hsl(0 0% 0% / 0.60);
+        --shadow-glow: 0 0 60px hsl(182 65% 50% / 0.12);
+        --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.40);
+        --shadow-header: 0 4px 30px -4px hsl(0 0% 0% / 0.50), 0 0 0 1px hsl(220 10% 22%);
+        --shadow-sidebar: 4px 0 30px -4px hsl(0 0% 0% / 0.50), 0 0 0 1px hsl(220 10% 22%);
+
+        /* Sidebar pour le mode sombre */
+        --sidebar-background: 220 15% 10%;
+        --sidebar-foreground: 0 0% 96%;
+        --sidebar-primary: 182 65% 50%;
+        --sidebar-primary-foreground: 220 15% 8%;
+        --sidebar-accent: 220 10% 16%;
+        --sidebar-accent-foreground: 0 0% 96%;
+        --sidebar-border: 220 10% 20%;
+        --sidebar-ring: 182 65% 50%;
+
+        /* Header pour le mode sombre */
+        --header-background: 220 15% 10%;
+        --header-border: 220 10% 20%;
+    }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+/*
+ * =============================================================================
+ * STYLES DE BASE - NE PAS MODIFIER
+ * =============================================================================
+ */
 
-  body {
-    @apply bg-background text-foreground;
-  }
+@layer base {
+    /* Appliquer la couleur de bordure par défaut à tous les éléments */
+    * {
+        @apply border-border;
+    }
+
+    /* Définir le fond et la couleur du texte pour le body */
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    /*
+     * ===========================================================================
+     * STYLES DE BARRE DE DÉFILEMENT PERSONNALISÉE - TECHNIQUE
+     * ===========================================================================
+     */
+
+    /* Barre de défilement moderne pour navigateurs WebKit (Chrome, Safari, Edge) */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: hsl(var(--background));
+        border-radius: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: hsl(var(--primary));
+        border-radius: 4px;
+        transition: background 0.2s ease;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: hsl(var(--primary-dark));
+    }
+
+    /* Styles pour Firefox */
+    .custom-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: hsl(var(--primary)) hsl(var(--background));
+    }
+
+    /*
+     * ===========================================================================
+     * BARRE DE DÉFILEMENT SIDEBAR - TECHNIQUE
+     * ===========================================================================
+     */
+
+    .sidebar-scrollbar::-webkit-scrollbar {
+        width: 6px;
+        transition: width 0.2s ease;
+    }
+
+    .sidebar-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+        margin: 4px 0;
+    }
+
+    .sidebar-scrollbar::-webkit-scrollbar-thumb {
+        background: hsl(var(--sidebar-border));
+        border-radius: 100px;
+        border: 2px solid transparent;
+        background-clip: padding-box;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sidebar-scrollbar:hover::-webkit-scrollbar-thumb {
+        background: hsl(var(--muted-foreground) / 0.3);
+        border: 2px solid transparent;
+        background-clip: padding-box;
+    }
+
+    .sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: hsl(var(--muted-foreground) / 0.5);
+        border: 1px solid transparent;
+        background-clip: padding-box;
+    }
+
+    .sidebar-scrollbar::-webkit-scrollbar-thumb:active {
+        background: hsl(var(--primary) / 0.6);
+    }
+
+    .sidebar-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: hsl(var(--sidebar-border)) transparent;
+        transition: scrollbar-color 0.2s ease;
+    }
+
+    .sidebar-scrollbar:hover {
+        scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+    }
+
+    /* Variante avec masquage automatique */
+    .sidebar-scrollbar-auto::-webkit-scrollbar {
+        width: 4px;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .sidebar-scrollbar-auto::-webkit-scrollbar-thumb {
+        background: transparent;
+        border-radius: 100px;
+        transition: background 0.3s ease;
+    }
+
+    .sidebar-scrollbar-auto:hover::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .sidebar-scrollbar-auto:hover::-webkit-scrollbar-thumb {
+        background: hsl(var(--muted-foreground) / 0.25);
+    }
+
+    .sidebar-scrollbar-auto::-webkit-scrollbar-thumb:hover {
+        background: hsl(var(--muted-foreground) / 0.4);
+    }
+
+    /*
+     * ===========================================================================
+     * ANIMATION DE DÉFILEMENT INFINI - TECHNIQUE
+     * ===========================================================================
+     *
+     * Utilisée pour le carrousel de logos des partenaires.
+     */
+
+    @keyframes scroll-infinite {
+        0% {
+            transform: translate3d(0, 0, 0);
+        }
+        100% {
+            transform: translate3d(-50%, 0, 0);
+        }
+    }
+
+    .animate-scroll-infinite {
+        animation: scroll-infinite 45s linear infinite;
+        will-change: transform;
+    }
+
+    .animate-scroll-infinite:hover {
+        animation-play-state: paused;
+    }
+}
+
+/* =============================================================================
+ * 🌍 RTL & ARABIC FONT SUPPORT
+ * IBM Plex Sans Arabic - Professional enterprise typography
+ * =============================================================================
+ */
+[dir="rtl"] {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+}
+
+/* Arabic Typography Scale - Enterprise Level */
+[dir="rtl"] h1,
+[dir="rtl"] .text-5xl,
+[dir="rtl"] .text-4xl {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+[dir="rtl"] h2,
+[dir="rtl"] .text-3xl,
+[dir="rtl"] .text-2xl {
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] .text-xl,
+[dir="rtl"] .text-lg {
+    font-weight: 500;
+}
+
+[dir="rtl"] p,
+[dir="rtl"] span,
+[dir="rtl"] label,
+[dir="rtl"] .text-base,
+[dir="rtl"] .text-sm {
+    font-weight: 400;
+}
+
+/* Arabic Button Typography - Consistent enterprise feel */
+[dir="rtl"] button,
+[dir="rtl"] [role="button"],
+[dir="rtl"] .btn {
+    font-weight: 500;
+    letter-spacing: 0;
+}
+
+/* Arabic Form Elements */
+[dir="rtl"] input,
+[dir="rtl"] textarea,
+[dir="rtl"] select {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-weight: 400;
+}
+
+/* Arabic Small/Muted Text */
+[dir="rtl"] .text-xs,
+[dir="rtl"] .text-muted-foreground {
+    font-weight: 400;
 }

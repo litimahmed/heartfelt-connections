@@ -1,26 +1,46 @@
-<!doctype html>
+<!--
+  This is the main HTML file that serves as the entry point for the single-page application (SPA).
+  It sets up the basic document structure and provides a mount point for the React application.
+-->
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- TODO: Set the document title to the name of your application -->
-    <title>Lovable App</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
-
-    <!-- TODO: Update og:title to match your application name -->
-    <meta property="og:title" content="Lovable App" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Specifies the character encoding for the document. UTF-8 is the standard. -->
+    <meta charset="UTF-8">
+    
+    <!-- 
+      Sets the viewport to ensure the page is responsive and scales correctly on different devices.
+      'width=device-width' makes the page width match the device's screen width.
+      'initial-scale=1.0' sets the initial zoom level when the page is first loaded.
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 
+      Sets the favicon for the website, which is the small icon displayed in the browser tab.
+      The path '/favicon.png' points to a file in the 'public' directory.
+    -->
+    <link rel="icon" href="/favicon.png" type="image/png">
+    
+    <!-- IBM Plex Sans Arabic - Professional enterprise Arabic font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap">
+    
+    <!-- The title of the web page, displayed in the browser tab and search engine results. -->
+    <title>Toorrii - Smart Queue Management</title>
   </head>
-
   <body>
+    <!-- 
+      This is the root element where the React application will be mounted.
+      The 'createRoot' function in 'src/main.tsx' targets this element.
+    -->
     <div id="root"></div>
+    
+    <!-- 
+      This script tag loads and executes the main JavaScript file for the React application.
+      'type="module"' indicates that the script is an ES module, allowing for 'import' and 'export' statements.
+      'src="/src/main.tsx"' points to the main entry point of the application.
+    -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

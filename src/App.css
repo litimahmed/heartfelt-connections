@@ -1,3 +1,13 @@
+/**
+ * @file App.css
+ * @description This file contains the main styles for the App component.
+ * It includes styles for the root element, logos, animations, and other general-purpose classes.
+ */
+
+/*
+ * Root container for the application.
+ * Centers the content and sets a maximum width for better readability on large screens.
+ */
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -5,19 +15,38 @@
   text-align: center;
 }
 
+/*
+ * Styles for logo images.
+ * Sets the height, padding, and adds a transition for a smooth filter effect.
+ * The `will-change` property is used to optimize the animation performance.
+ */
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
+
+/*
+ * Hover effect for logos.
+ * Adds a drop shadow to create a glowing effect when the user hovers over the logo.
+ */
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
+/*
+ * Specific hover effect for the React logo.
+ * Uses a different color for the drop shadow to match the React brand.
+ */
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+/*
+ * Defines a keyframe animation for spinning the logo.
+ * The logo rotates a full 360 degrees.
+ */
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -27,16 +56,28 @@
   }
 }
 
+/*
+ * Applies the logo-spin animation if the user has no preference for reduced motion.
+ * This is an accessibility feature to avoid causing discomfort for users sensitive to motion.
+ */
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
 }
 
+/*
+ * A simple card-style container.
+ * Adds padding to create space around the content.
+ */
 .card {
   padding: 2em;
 }
 
+/*
+ * Styles for a "read the docs" link or text.
+ * Sets a muted color to make it less prominent.
+ */
 .read-the-docs {
   color: #888;
 }

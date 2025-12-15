@@ -1,9 +1,11 @@
 {
+  "_comment": "This file is used to configure the shadcn/ui CLI. It defines the project's structure, styling, and aliases.",
   "$schema": "https://ui.shadcn.com/schema.json",
   "style": "default",
   "rsc": false,
   "tsx": true,
   "tailwind": {
+    "_comment": "This section configures how shadcn/ui interacts with Tailwind CSS.",
     "config": "tailwind.config.ts",
     "css": "src/index.css",
     "baseColor": "slate",
@@ -11,6 +13,7 @@
     "prefix": ""
   },
   "aliases": {
+    "_comment": "This section defines the import aliases used in the project.",
     "components": "@/components",
     "utils": "@/lib/utils",
     "ui": "@/components/ui",
